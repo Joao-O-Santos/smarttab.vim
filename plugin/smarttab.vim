@@ -43,6 +43,8 @@ function! PySmartIndent()
 	return SmartIndentOn([','], ['(', '[', '{'])
 endfunction
 
+" TODO: teach smarttab to align text in bullet points (MdSmarIndent())
+
 function! SmartTab()
 	let before = strpart(getline('.'), 0, col('.')-1)
 	if before =~ '^\t*$' | return "	" | endif
@@ -56,8 +58,8 @@ function! SmartDelete()
 	return "\<BS>"
 endfunction
 
-autocmd BufEnter *.c,*.cpp inoremap <CR> <C-R>=CSmartIndent()<CR>
-autocmd BufEnter *.py inoremap <CR> <C-R>=PySmartIndent()<CR>
+inoremap <CR> <C-R>=CSmartIndent()<CR>
+autocmd FileType python inoremap <CR> <C-R>=PySmartIndent()<CR>
 inoremap <S-TAB> <TAB>
 inoremap <TAB> <C-R>=SmartTab()<CR>
 inoremap <BS> <C-R>=SmartDelete()<CR>
